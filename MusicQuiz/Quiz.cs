@@ -21,6 +21,7 @@ namespace MusicQuiz
             this.random = random;
             songs = new List<Song>();
 
+            // Search the base path for files, then directories within it
             List<string> directoryList = new List<string>();
             String[] baseDirectoryArray = Directory.GetFiles(path);
             directoryList = baseDirectoryArray.ToList<string>();

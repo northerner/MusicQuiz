@@ -52,7 +52,7 @@ namespace MusicQuiz
             option2Button.Text = answer2.artist;
             option3Button.Text = answer3.artist;
 
-            answerNum = random.Next(1, 3);
+            answerNum = random.Next(1, 4);
             if (answerNum == 1)
                 correctAnswer = answer1;
             else if (answerNum == 2)

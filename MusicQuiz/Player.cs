@@ -9,6 +9,9 @@ namespace MusicQuiz
 {
     class Player
     {
+        // Most code in this class is from Mark Heath's NAudio tutorial
+        // naudio.codeplex.com
+
         IWavePlayer waveOutDevice;
         WaveStream mainOutputStream;
         WaveChannel32 volumeStream;
