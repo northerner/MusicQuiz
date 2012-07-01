@@ -39,6 +39,7 @@
             this.feedbackLabel = new System.Windows.Forms.Label();
             this.songTimer = new System.Windows.Forms.Timer(this.components);
             this.backgroundWorker1 = new System.ComponentModel.BackgroundWorker();
+            this.scroreTimerLabel = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // folderButton
@@ -110,18 +111,29 @@
             // 
             // songTimer
             // 
-            this.songTimer.Interval = 1000;
+            this.songTimer.Interval = 10;
+            this.songTimer.Tick += new System.EventHandler(this.songTimer_Tick);
             // 
             // backgroundWorker1
             // 
             this.backgroundWorker1.DoWork += new System.ComponentModel.DoWorkEventHandler(this.backgroundWorker1_DoWork);
             this.backgroundWorker1.RunWorkerCompleted += new System.ComponentModel.RunWorkerCompletedEventHandler(this.backgroundWorker1_RunWorkerCompleted);
             // 
+            // scroreTimerLabel
+            // 
+            this.scroreTimerLabel.AutoSize = true;
+            this.scroreTimerLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.scroreTimerLabel.Location = new System.Drawing.Point(255, 157);
+            this.scroreTimerLabel.Name = "scroreTimerLabel";
+            this.scroreTimerLabel.Size = new System.Drawing.Size(0, 25);
+            this.scroreTimerLabel.TabIndex = 7;
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(384, 294);
+            this.Controls.Add(this.scroreTimerLabel);
             this.Controls.Add(this.feedbackLabel);
             this.Controls.Add(this.option3Button);
             this.Controls.Add(this.option2Button);
@@ -149,6 +161,7 @@
         private System.Windows.Forms.Label feedbackLabel;
         private System.Windows.Forms.Timer songTimer;
         private System.ComponentModel.BackgroundWorker backgroundWorker1;
+        private System.Windows.Forms.Label scroreTimerLabel;
 
 
     }

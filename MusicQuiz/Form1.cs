@@ -15,6 +15,11 @@ namespace MusicQuiz
         Quiz quiz;
         Random random;
         Player player;
+        int score;
+        double time;
+        // 'answered' bool prevents starting multiple questions
+        // before finishing the current question
+        bool answered;
 
         Song correctAnswer;
         int answerNum;
@@ -23,6 +28,9 @@ namespace MusicQuiz
         {
             InitializeComponent();
             this.random = new Random();
+            time = 0.00;
+            score = 0;
+            answered = true;
         }
 
 
@@ -31,6 +39,7 @@ namespace MusicQuiz
             DialogResult result = folderBrowserDialog1.ShowDialog();
             if (result == DialogResult.OK)
             {
+                this.Cursor = Cursors.WaitCursor;
                 option1Button.Visible = false;
                 option2Button.Visible = false;
                 option3Button.Visible = false;
@@ -48,6 +57,12 @@ namespace MusicQuiz
                 MessageBox.Show("Please select your music folder");
                 return;
             }
+            if (answered == false)
+            {
+                return;
+            }
+            answered = false;
+
             Question question = quiz.newQuestion();
             Song answer1 = question.answer1;
             Song answer2 = question.answer2;
@@ -66,34 +81,41 @@ namespace MusicQuiz
                 correctAnswer = answer3;
 
             player = new Player(correctAnswer.path);
+            songTimer.Start();
         }
 
-        private void answerCheck(int answerNumber)
+        private bool answerCheck(int answerNumber)
         {
             if (answerNumber == this.answerNum)
             {
+                songTimer.Stop();
+                score += returnScore(this.time);
+                time = 0;
+                scroreTimerLabel.Text = "Score: " + score.ToString();
                 feedbackLabel.Text = "Correct! well done.";
                 player.CloseWaveOut();
+                return true;
             }
             else
             {
                 feedbackLabel.Text = "Wrong, try again";
+                return false;
             }
         }
 
         private void option1Button_Click(object sender, EventArgs e)
         {
-            answerCheck(1);
+            answered = answerCheck(1);
         }
 
         private void option2Button_Click(object sender, EventArgs e)
         {
-            answerCheck(2);
+            answered = answerCheck(2);
         }
 
         private void option3Button_Click(object sender, EventArgs e)
         {
-            answerCheck(3);
+            answered = answerCheck(3);
         }
 
         private void backgroundWorker1_DoWork(object sender, DoWorkEventArgs e)
@@ -103,6 +125,7 @@ namespace MusicQuiz
 
         private void backgroundWorker1_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
         {
+            this.Cursor = Cursors.Default;
             MessageBox.Show("Total songs added: " + quiz.songs.Count.ToString());
             option1Button.Visible = true;
             option2Button.Visible = true;
@@ -119,6 +142,29 @@ namespace MusicQuiz
             {
                 player.CloseWaveOut();
             }
+        }
+
+        private void songTimer_Tick(object sender, EventArgs e)
+        {
+            time += 0.01;
+            scroreTimerLabel.Text = "";
+            scroreTimerLabel.Text = "Time: " + time.ToString();
+        }
+
+        private int returnScore(double time)
+        {
+            if (time < 0.80)
+                return 10;
+            if (time < 1.00)
+                return 8;
+            if (time < 3.00)
+                return 6;
+            if (time < 6.00)
+                return 3;
+            if (time < 10.00)
+                return 2;
+            else
+                return 1;
         }
 
     }
