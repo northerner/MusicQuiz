@@ -1,0 +1,17 @@
+# Compiled source #
+###################
+*.com
+*.class
+*.exe
+*.o
+*.so
+*.suo
+*.pdb
+*.cache
+*.Cache
+
+
+# Directories #
+###############
+bin/
+obj/
