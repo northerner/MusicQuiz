@@ -31,8 +31,13 @@ namespace MusicQuiz
             DialogResult result = folderBrowserDialog1.ShowDialog();
             if (result == DialogResult.OK)
             {
-                MessageBox.Show(folderBrowserDialog1.SelectedPath.ToString());
-                quiz = new Quiz(folderBrowserDialog1.SelectedPath, random);
+                option1Button.Visible = false;
+                option2Button.Visible = false;
+                option3Button.Visible = false;
+                folderButton.Visible = false;
+                newQuestionButton.Visible = false;
+                feedbackLabel.Text = "Searching for MP3s. Please Wait.";
+                backgroundWorker1.RunWorkerAsync();
             }
         }
 
@@ -89,6 +94,31 @@ namespace MusicQuiz
         private void option3Button_Click(object sender, EventArgs e)
         {
             answerCheck(3);
+        }
+
+        private void backgroundWorker1_DoWork(object sender, DoWorkEventArgs e)
+        {
+            quiz = new Quiz(folderBrowserDialog1.SelectedPath, random);
+        }
+
+        private void backgroundWorker1_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
+        {
+            MessageBox.Show("Total songs added: " + quiz.songs.Count.ToString());
+            option1Button.Visible = true;
+            option2Button.Visible = true;
+            option3Button.Visible = true;
+            folderButton.Visible = true;
+            newQuestionButton.Visible = true;
+            feedbackLabel.Text = "Hit 'New Question' to begin";
+        }
+
+        private void Form1_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            // Cleanup NAudio resources on application quit
+            if (player != null)
+            {
+                player.CloseWaveOut();
+            }
         }
 
     }

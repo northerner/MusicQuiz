@@ -38,6 +38,7 @@
             this.option3Button = new System.Windows.Forms.Button();
             this.feedbackLabel = new System.Windows.Forms.Label();
             this.songTimer = new System.Windows.Forms.Timer(this.components);
+            this.backgroundWorker1 = new System.ComponentModel.BackgroundWorker();
             this.SuspendLayout();
             // 
             // folderButton
@@ -100,16 +101,21 @@
             // feedbackLabel
             // 
             this.feedbackLabel.AutoSize = true;
-            this.feedbackLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 21.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.feedbackLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.feedbackLabel.Location = new System.Drawing.Point(6, 246);
             this.feedbackLabel.Name = "feedbackLabel";
-            this.feedbackLabel.Size = new System.Drawing.Size(351, 33);
+            this.feedbackLabel.Size = new System.Drawing.Size(355, 25);
             this.feedbackLabel.TabIndex = 6;
-            this.feedbackLabel.Text = "Hit \'New Question\' to start";
+            this.feedbackLabel.Text = "Hit \'Select Folder\' to add your music";
             // 
             // songTimer
             // 
             this.songTimer.Interval = 1000;
+            // 
+            // backgroundWorker1
+            // 
+            this.backgroundWorker1.DoWork += new System.ComponentModel.DoWorkEventHandler(this.backgroundWorker1_DoWork);
+            this.backgroundWorker1.RunWorkerCompleted += new System.ComponentModel.RunWorkerCompletedEventHandler(this.backgroundWorker1_RunWorkerCompleted);
             // 
             // Form1
             // 
@@ -125,6 +131,7 @@
             this.Controls.Add(this.folderButton);
             this.Name = "Form1";
             this.Text = "Music Quiz";
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.Form1_FormClosing);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -141,6 +148,7 @@
         private System.Windows.Forms.Button option3Button;
         private System.Windows.Forms.Label feedbackLabel;
         private System.Windows.Forms.Timer songTimer;
+        private System.ComponentModel.BackgroundWorker backgroundWorker1;
 
 
     }

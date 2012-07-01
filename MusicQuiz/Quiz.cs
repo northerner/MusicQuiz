@@ -43,7 +43,6 @@ namespace MusicQuiz
             Debug.Assert(directoryArray.Length > 3);
 
             build(directoryArray);
-            MessageBox.Show("Total songs added: " + songs.Count.ToString());
         }
 
         private void build(string[] directoryArray)
